@@ -1,0 +1,19 @@
+---
+    - name: Confirm existence of user ID
+      shell: grep "{{ user_name }}" /etc/passwd | awk -F":" '{print $1}'
+      register: user_exists
+
+    - debug:
+        var: user_exists
+
+    - name: Print if userid does not exist on this system
+      debug:
+        msg: "The user {{ user_name }} successfully deleted on this server"
+      when: user_exists.stdout == ""
+
+    - name: Print if user id exist on this system
+      debug:
+        msg: "The user {{ user_name }} exists on this server"
+      when: user_exists.stdout != ""
+
+

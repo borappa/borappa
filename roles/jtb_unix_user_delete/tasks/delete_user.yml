@@ -1,0 +1,17 @@
+- name: Remove the user from this server
+  user:
+    name: "{{ user_name }}"
+    state: absent
+    remove: yes
+  register: user_deleted
+
+- debug:
+    var: user_deleted
+- name: Setting facts when user id deleted
+  set_fact: 
+    user_delete: "Successfully deleted the user {{ user_name }}"
+  when: 
+    - user_deleted is succeeded
+
+
+

@@ -1,0 +1,18 @@
+- include_tasks: display_output.yml
+
+- include_tasks: cleanup.yml
+
+- name: Collect exec message for ticket update
+  include_tasks: collect_exec_message.yml
+
+- name: Printing Ticket Variables.
+  debug:
+    msg:
+     - "exec_success: {{ exec_success }}"
+     - "exec_changed: {{ exec_changed }}"
+     - "exec_rc: {{ exec_rc }}"
+     - "exec_message: "
+     - "{{ exec_message }}"
+
+- meta: end_play
+

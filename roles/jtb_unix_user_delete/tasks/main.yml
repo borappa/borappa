@@ -1,0 +1,32 @@
+---
+# tasks file for jtb_unix_user_delete
+
+- name: "initialize tower workflow variables"
+  set_fact:
+    exec_success: false
+    exec_changed: false
+    exec_rc: 1
+    exec_message: "Task execution failed."
+
+- name: Confirm existence of user ID before delete
+  include_tasks: confirm_user_exists_before_delete.yml
+
+- name: Delete user from target server
+  include_tasks: delete_user.yml
+  when: user_exist is defined
+
+- name: Confirm existence of user ID after deleted 
+  include_tasks: confirm_user_exists_after_delete.yml
+  when: user_exist is defined
+
+- name: Collect exec message for ticket update
+  include_tasks: collect_exec_message.yml
+
+- name: Printing Ticket Variables.
+  debug:
+    msg:
+     - "exec_success: {{ exec_success }}"
+     - "exec_changed: {{ exec_changed }}"
+     - "exec_rc: {{ exec_rc }}"
+     - "exec_message: "
+     - "{{ exec_message }}"

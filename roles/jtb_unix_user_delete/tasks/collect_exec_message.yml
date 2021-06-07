@@ -1,0 +1,68 @@
+# task file for collect_exec_message
+- name: Block of remediation - Task successful
+  block:
+    - name: Set fact
+      set_fact:
+        exec_success: true
+        exec_changed: true
+        exec_rc: 0
+        exec_message: |
+          "Summary : {{ user_delete }}"
+          "Result : Remedation with Corrective Closure, execution completed successfully"
+          "Failure Point : N/A"
+  when: 
+    - user_exist is defined
+    - user_delete is defined
+
+- name: Block of Remidiation - user does not exists
+  block:
+    - name: set fact
+      set_fact:
+        exec_success: true
+        exec_changed: false
+        exec_rc: 0 
+        exec_message: |
+          "Summary : User does not exit on this server "
+          "Result : Remediation with validation closure"
+          "Failure Point : N/A"
+   
+  when:
+    - user_not_exist is defined
+    - user_delete is not defined
+
+#- name: Block of diagnose - Endpoint not connected
+#  block:
+#    - name: set fact
+#      set_fact:
+#        exec_success: false
+#        exec_changed: false
+#        exec_rc: 3000
+#        exec_message: |
+#          "Summary : Endpoint connectivity failure "
+#          "Result : Diagnosis"
+#          "Failure Point : N/A"
+   
+#  when:
+#    -
+#    - 
+
+
+#- name: Block of escalation - abnormal completion
+#  block:
+#    - name: set fact
+#      set_fact:
+#        exec_success: false
+#        exec_changed: true
+#        exec_rc: 3006
+#        exec_message: |
+#          "Summary : Abnormal completion "
+#          "Result : Diagnosis"
+
+#  when: 
+#    - 
+#    - 
+
+- name: Split exec message output into new lines
+  set_fact:
+    exec_message: "{{ exec_message.split('\n') | replace('\"','') }}"
+
