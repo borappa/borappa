@@ -1,2 +1,3 @@
 ---
 # defaults file for jtb_unix_user_delete
+user_name: test1
