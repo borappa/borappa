@@ -5,9 +5,9 @@
       include_role:
         name: jtb_unix_user_delete
         tasks_from: main.yml
-        #apply:
-          #become: true
-          #line
+        apply:
+          become: true
+          line
       when: ansible_facts['os_family']
         in ['RedHat', 'Suse', 'AIX', 'Debian']
 
