@@ -1,7 +1,7 @@
 ---
 - hosts: TestServer
   tasks:
-    - name: Tasks to delete user on UNIX Endpoints
+    - name: Tasks to delete user on UNIX Endpoints as per the SR
       include_role:
         name: jtb_unix_user_delete
         tasks_from: main.yml
