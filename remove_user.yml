@@ -1,5 +1,5 @@
 ---
-- hosts: localhost
+- hosts: TestServer
   tasks:
     - name: Tasks to delete user on UNIX Endpoints
       include_role:
